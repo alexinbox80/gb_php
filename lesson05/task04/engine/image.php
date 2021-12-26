@@ -21,6 +21,6 @@ if ($res) {
 
 <img src="<?= $imgPath . $row['photo']; ?>" alt=""><br>
 
-<span>Количество просмотров: <?= $row['count'];?></span><br>
+<span>Количество просмотров: <?= ++$row['count'];?></span><br>
 <a href="<?= $_SERVER['HTTP_REFERER']; ?>">Вернуться оборатно</a>
 
