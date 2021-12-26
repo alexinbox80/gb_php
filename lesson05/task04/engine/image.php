@@ -5,18 +5,18 @@ include_once "config.php";
 
 <?php
 $imgPath = "../" . $imgPath . "/big/";
-$photo_id = $_GET['photo_id'];
+$photo_id = (int)$_GET['photo_id'];
 
-$sql = "SELECT count FROM images WHERE id = " . $photo_id;
-$res = mysqli_query($connect, $sql);
-$row = mysqli_fetch_array($res);
+$sql = "SELECT photo, count FROM images WHERE id = $photo_id";
 
-$sql = "UPDATE images SET count = " . ($row['count'] + 1) ." WHERE id = " . $photo_id ;
 $res = mysqli_query($connect, $sql);
 
-$sql = "SELECT photo, count FROM images WHERE id = " . $photo_id;
-$res = mysqli_query($connect, $sql);
-$row = mysqli_fetch_array($res);
+if ($res) {
+    $row = mysqli_fetch_array($res);
+    $update = "UPDATE images SET count = count + 1 WHERE id = $photo_id";
+    $res = mysqli_query($connect, $update);
+}
+
 ?>
 
 <img src="<?= $imgPath . $row['photo']; ?>" alt=""><br>
