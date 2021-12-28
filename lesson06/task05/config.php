@@ -1,13 +1,15 @@
 <?php
 
-$imgPath = "public/images";
-
 const SERVER = "localhost";
 const DB = "image";
 const LOGIN = "image";
 const PASSWD = "image";
 
 $connect = mysqli_connect(SERVER, LOGIN, PASSWD, DB);
+
+if (!$connect) {
+    echo "Ошибка соединения с БД!<br>";
+}
 
 ?>
 
