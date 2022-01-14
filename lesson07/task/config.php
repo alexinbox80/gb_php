@@ -7,7 +7,7 @@ const DB = "image";
 const LOGIN = "image";
 const PASSWD = "image";
 
-$connect = mysqli_connect(SERVER, LOGIN, PASSWD, DB);
+$connect = mysqli_connect(SERVER, LOGIN, PASSWD, DB) or die(mysqli_error($connect));
 
 ?>
 
