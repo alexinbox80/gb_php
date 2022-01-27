@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     getGoodsHandler('note__getgood', 'getGood', getGoodHandler);
 
-    $(document).on("click","#editGood",function() {
+    $(document).on("click", "#editGood", function () {
         let id = $(this).attr("data-goodid");
         let answ = answer.filter(goods => goods.good_id === id);
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("click","#deleteGood", function() {
+    $(document).on("click", "#deleteGood", function () {
         let id = $(this).attr("data-goodid");
 
         let todo = {"good_id": id, "todo": "delGood"};
@@ -29,19 +29,24 @@ $(document).ready(function () {
         editGoodsHandler('note__getgood', todo, getGoodHandler, id);
     });
 
-    $(document).on("click","#addGood",function() {
-        console.log('add');
-        console.log('data = ');
+    $(document).on("click", "#addGood", function () {
 
+        clearPage('cart__cards');
+
+        const cartList = document.querySelector('.cart__cards');
+
+        if (cartList) {
+            render(cartList, 'beforeend', '', 'goodHtmlForm');
+        }
     });
 
-    $(document).on("click","#saveGood",function() {
+    $(document).on("click", "#saveGood", function () {
 
         let id = $(this).attr("data-goodid");
         let editForm = $("#itemUpdate").serializeArray();
         let indexed_array = {};
 
-        $.map(editForm, function(n, i){
+        $.map(editForm, function (n, i) {
             indexed_array[n['name']] = n['value'];
         });
 
@@ -51,10 +56,73 @@ $(document).ready(function () {
         //editGoodsHandler('note__getgood', todo, "../admin/controllers/tmp.php");
     });
 
+    $(document).on("click", "#insertGood", function () {
+        let editForm = $("#itemInsert").serializeArray();
+        let indexed_array = {};
+
+        let empty = false;
+        $.map(editForm, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+
+            if (n['value'] === '') {
+                empty = true;
+            }
+        });
+
+        if (empty) {
+            $("#insert__note").html('<div class="err">Empty fields</div>');
+        } else {
+            let todo = {"todo": "addGood", "good": indexed_array};
+
+            //console.log('todo = ' + JSON.stringify(todo));
+
+            editGoodsHandler('note__getgood', todo, getGoodHandler);
+            //editGoodsHandler('note__getgood', todo, "../admin/controllers/tmp.php");
+        }
+
+        //$("#" + result_form).html('<div class="err">' + answer['errorMessage'] + '</div>');
+
+        //editGoodsHandler('note__getgood', todo, "../admin/controllers/tmp.php");
+    });
+
     function clearPage(tag) {
 
         document.getElementById(tag).innerHTML = "";
 
+    }
+
+    function goodHtmlForm() {
+        return `<div class="insprod__item">
+                        <div id="insert__note"></div>
+                        <form id="itemInsert" class="form__table content__admin" method="POST">
+                            <div class="insprod__content">
+                                <p class="insprod__text">
+                                    <input class="title" type="text" name="title" value="" placeholder="good title">
+                                </p>
+                                <p class="insprod__textarea">
+                                    <textarea class="insprod__description" name="description" placeholder="good description"></textarea>
+                                </p>
+                                <p class="insprod__text">
+                                    <input class="image" type="text" name="image" value="" placeholder="good image file">
+                                </p>
+                                <p class="insprod__text">
+                                    <input class="color" type="text" name="color" value="" placeholder="good color">
+                                </p>
+                                <p class="insprod__text">
+                                    <input class="size" type="text" name="size" value="" placeholder="good size">
+                                </p>
+                                <p class="insprod__text">
+                                    <input class="price" type="text" name="price" value="" placeholder="good price">
+                                </p>
+                                <p class="insprod__text">
+                                    <input class="discount" type="text" name="discount" value="" placeholder="good price discont">
+                                </p>
+                            </div>
+                            <div class="insprod__button">
+                                <button id="insertGood" type="button" class="products__button-save">insert</button>
+                            </div>
+                        </form>
+                    </div>`;
     }
 
     function getHtmlForm(answer) {
@@ -113,11 +181,23 @@ $(document).ready(function () {
     }
 
     function render(container, target = 'beforeend', value, str) {
-        if (str === 'getHtml') {
-            container.insertAdjacentHTML(target, getHtml(value));
-        } else {
-            container.insertAdjacentHTML(target, getHtmlForm(value));
+
+        switch (str) {
+            case 'getHtml':
+                container.insertAdjacentHTML(target, getHtml(value));
+                break;
+            case 'goodHtmlForm':
+                container.insertAdjacentHTML(target, goodHtmlForm());
+                break;
+            default:
+                container.insertAdjacentHTML(target, getHtmlForm(value));
         }
+
+        // if (str === 'getHtml') {
+        //     container.insertAdjacentHTML(target, getHtml(value));
+        // } else {
+        //     container.insertAdjacentHTML(target, getHtmlForm(value));
+        // }
 
     }
 
@@ -181,7 +261,7 @@ $(document).ready(function () {
 
                 answer = JSON.parse(response);
 
-                console.log('answer = ' + JSON.stringify(answer));
+                //console.log('answer = ' + JSON.stringify(answer));
 
                 // if (answer.hasOwnProperty('userId')) {
                 //     user.userId = answer.userId;

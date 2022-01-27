@@ -311,10 +311,30 @@ ul {
   outline: none;
 }
 
+.insprod__item {
+  margin-bottom: 32px;
+}
+.insprod__text {
+  border: 1px solid grey;
+  padding: 15px 39px 14px 39px;
+  line-height: 19px;
+  margin-bottom: 16px;
+}
+.insprod__description {
+  margin-bottom: 16px;
+  width: 100%;
+  height: 128px;
+  padding: 15px 39px 14px 39px;
+  box-sizing: border-box;
+}
+
 .products__item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
+}
+.products__content {
+  width: 452px;
 }
 .products__text {
   margin-bottom: 32px;

@@ -217,3 +217,20 @@ function delGood($connect, $id)
 
     return $goods;
 }
+
+function addGood($connect, $good)
+{
+    $sql = "INSERT INTO `goods` (`good_id`, `title`, `description`, `image`, `color`, `size`, `price`, `discount`)
+            VALUES ('" . $good['id'] . "', '" . $good['title'] . "', '" . $good['description'] . "', '" . $good['image'] . "', '" .
+        $good['color'] . "', '" . $good['size'] . "', '" . $good['price'] . "', '" . $good['discount'] . "');";
+
+    $res = mysqli_query($connect, $sql);
+
+    $sql = "SELECT * FROM goods";
+
+    $res = mysqli_query($connect, $sql);
+    $goods = mysqli_fetch_all($res,MYSQLI_ASSOC);
+
+    return $goods;
+}
+
