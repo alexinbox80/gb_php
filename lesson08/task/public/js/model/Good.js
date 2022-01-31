@@ -1,6 +1,7 @@
 export default class Good {
-    constructor({id, title, description, image, price, size, color, discount}) {
+    constructor({id, goodId, title, description, image, price, size, color, discount}) {
         this._id = id;
+        this._goodId = goodId;
         this._title = title;
         this._description = description;
         this._image = image;
@@ -11,6 +12,8 @@ export default class Good {
     }
 
     get id() { return this._id; }
+
+    get goodId() { return this._goodId; }
 
     get title() { return this._title; }
 

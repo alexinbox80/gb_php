@@ -17,9 +17,10 @@ export default {
 
         this._eventEmmiter.addListener('added', this._renderCart.bind(this));
         this._eventEmmiter.addListener('removed', this._renderCart.bind(this));
+
+
         this._eventEmmiter.addListener('loaded', this._renderCart.bind(this));
         this._eventEmmiter.addListener('loaded', this._renderShowcase.bind(this));
-
         this._eventEmmiter.addListener('loaded', this._renderPageCart.bind(this));
 
         this._cartModel.load();
@@ -29,9 +30,45 @@ export default {
 
     _addToCart(id) {
 
+        let saveCart = [];
+
         const good = new PurchasedGood(this._showcaseModel.get(id));
 
         this._cartModel.add(good);
+
+        console.log('cartCount : ' + this._cartModel.getCount());
+
+        // this._cartModel._goodList.forEach(
+        //     good => {
+        //         console.log(good);
+        //         saveCart.push({
+        //             userId: '81245312-a273-0c97-04e8-f99b5b199795',
+        //             goodId: good.goodId,
+        //             quantity: good.quantity,
+        //             timeCreate: Date.now()
+        //         });
+        //     }
+        // );
+
+        // saveCart = this._cartModel._goodList.map(function(item) {
+        //     return ({
+        //         userId: '81245312-a273-0c97-04e8-f99b5b199795',
+        //         goodId: item.goodId,
+        //         quantity: item.quantity,
+        //         timeCreate: Date.now()
+        //     });
+        // });
+
+        saveCart = this._cartModel._goodList.map(good => {
+            return {
+                userId: '81245000-a273-0c97-04e8-f99b5b199795',
+                goodId: good.goodId,
+                quantity: good.quantity,
+                timeCreate: Date.now()
+            }
+        });
+
+        this._cartModel.save(saveCart);
     },
 
     _removeFromCart(id) {
@@ -72,27 +109,24 @@ export default {
                     //card.setAddHandler(this._addToCart.bind(this));
                 }
             );
-
         }
-
     },
 
     _renderShowcase() {
         const $product = document.querySelector('.products__box');
 
+        console.log('Total ITEMS : ' + this._showcaseModel.getAll().length);
+
         if ($product) {
             $product.textContent = '';
 
-
-            this._showcaseModel.getAll().forEach(
+            this._showcaseModel.getAll().slice(0, 6).forEach(
                 good => {
-                    const card = new CardView(good);
-                    card.render($product, 'beforeend');
-                    card.setAddHandler(this._addToCart.bind(this));
-                }
+                        const card = new CardView(good);
+                        card.render($product, 'beforeend');
+                        card.setAddHandler(this._addToCart.bind(this));
+                    }
             );
-
         }
     }
-
 }

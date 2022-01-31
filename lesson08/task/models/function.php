@@ -234,3 +234,52 @@ function addGood($connect, $good)
     return $goods;
 }
 
+function getCart($connect, $id)
+{
+    $sql = "SELECT userId, cart.goodId, goods.title, goods.description, 
+                   goods.image, goods.color, goods.size, goods.price, goods.discount, cart.quantity AS quantity
+            FROM cart
+            INNER JOIN goods
+            ON cart.goodId = goods.goodId
+            WHERE userId = '" . $id . "'";
+
+    $res = mysqli_query($connect, $sql);
+
+    $good = mysqli_fetch_all($res,MYSQLI_ASSOC);
+
+    return $good;
+}
+
+function add2Cart($connect, $item)
+{
+    $sql = "SELECT * FROM `cart` WHERE `userId`= '" . $item['userId'] . "' AND 
+                                       `goodId`= '" . $item['goodId'] . "'";
+
+    $res = mysqli_query($connect, $sql);
+
+    if (mysqli_num_rows($res)) {
+        //update
+        $sql = "UPDATE `cart` SET `userId` = '" . $item['userId'] . "', 
+                                  `goodId` = '" . $item['goodId'] . "',
+                                  `quantity` = '" . $item['quantity'] . "',
+                                  `timeCreate` = '" . $item['timeCreate'] . "'
+                            WHERE `userId`= '" . $item['userId'] . "' AND 
+                                  `goodId`= '" . $item['goodId'] . "'";
+    } else {
+        //insert
+        $sql = "INSERT INTO `cart` (`userId`, `goodId`, `quantity`, `timeCreate`) 
+        VALUES ( '" . $item['userId'] . "',
+                 '" . $item['goodId'] . "', 
+                 '" . $item['quantity'] . "',
+                 '" . $item['timeCreate'] . "')";
+    }
+    $res = mysqli_query($connect, $sql);
+
+    $sql = "SELECT * FROM `cart` WHERE `userId`= '" . $item['userId'] . "' AND 
+                                       `goodId`= '" . $item['goodId'] . "'";
+
+    $res = mysqli_query($connect, $sql);
+    return (mysqli_num_rows($res));
+}
+
+

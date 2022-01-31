@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "goodId": "81245312-a273-0c97-04e8-f99b5b199795",
     "title": "ELLERY X M'O CAPSULE",
     "description": "Known for her sculptural takes on traditional tailoring, Australian\n arbiter of cool Kym Ellery teams up with Moda Operandi.",
     "image": "prod-item-1.jpg",
@@ -11,6 +12,7 @@
   },
   {
     "id": 2,
+    "goodId": "81245456-a273-0c97-04e8-f99b5b199795",
     "title": "ELLERY X M'O CAPSULE",
     "description": "Known for her sculptural takes on traditional tailoring, Australian\n arbiter of cool Kym Ellery teams up with Moda Operandi.",
     "image": "prod-item-2.jpg",

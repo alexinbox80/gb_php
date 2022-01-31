@@ -20,6 +20,23 @@ export default class GoodList {
 
     }
 
+    // save(callback, goodClass){
+    //
+    //     console.log('callback ' + callback);
+    //     console.log('goodClass ' + JSON.stringify(goodClass));
+    //
+    //     callback().then(data => {
+    //
+    //         console.log('data : ' + data);
+    //
+    //         data.map(item => new  goodClass(item));
+    //
+    //         this._eventEmmiter.emit('saved');
+    //
+    //     });
+    //
+    // }
+
     add(good) {
 
         this._goodList.push(good);
