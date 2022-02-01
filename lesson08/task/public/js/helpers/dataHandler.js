@@ -64,7 +64,7 @@ export default {
     },
 
     addToCart(errorCallBack, data) {
-        console.log('data : ' + JSON.stringify(data));
+        //console.log('data : ' + JSON.stringify(data));
         return fetch(`${this._url}jsonServer.php`, {
             method: 'POST',
             //body: data

@@ -36,7 +36,7 @@ export default {
 
         this._cartModel.add(good);
 
-        console.log('cartCount : ' + this._cartModel.getCount());
+        //console.log('cartCount : ' + this._cartModel.getCount());
 
         // this._cartModel._goodList.forEach(
         //     good => {
@@ -99,8 +99,6 @@ export default {
 
             $cartList.textContent = '';
 
-            //console.log(this._cartModel);
-
             this._cartModel._goodList.forEach(
                 good => {
                     //console.log(good);
@@ -114,8 +112,6 @@ export default {
 
     _renderShowcase() {
         const $product = document.querySelector('.products__box');
-
-        console.log('Total ITEMS : ' + this._showcaseModel.getAll().length);
 
         if ($product) {
             $product.textContent = '';

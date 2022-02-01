@@ -14,7 +14,7 @@ export default class Cart extends GoodList {
     save(cart) {
         //let saveGood = {userId: 'this user Id', goodId: good.goodId, quantity: good.quantity, timeCreate: Date.now()};
 
-        console.log('save cart item arr count : ' + cart.length + ' save cart : ' + JSON.stringify(cart));
+        //console.log('save cart item arr count : ' + cart.length + ' save cart : ' + JSON.stringify(cart));
 
         //console.log('save good : ' + JSON.stringify(saveGood));
         //console.log('dataHandler : ' + dataHandler.addToCart(dataHandler, cart));
@@ -37,7 +37,7 @@ export default class Cart extends GoodList {
             super.add(good);
 
         }
-        console.log('goodCount : ' + this.getCount() + ' goodList : ' + JSON.stringify(this._goodList));
+        //console.log('goodCount : ' + this.getCount() + ' goodList : ' + JSON.stringify(this._goodList));
 
         this._eventEmmiter.emit('added', good.id);
     }
@@ -54,12 +54,6 @@ export default class Cart extends GoodList {
     }
 
     getCount() {
-        return this._goodList.reduce((acc, good) => {
-            //acc + good.quantity;
-            console.log('good: ' + JSON.stringify(good));
-            return(acc + good.quantity);
-            //console.log('getCount(): ' + acc + good.quantity);
-            //console.log('getCount():-> ' + good.quantity);
-        }, 0);
+        return this._goodList.reduce((acc, good) => acc + good.quantity, 0);
     }
 }
