@@ -236,7 +236,14 @@ function addGood($connect, $good)
 
 function getCart($connect, $id)
 {
-    $sql = "SELECT userId, cart.goodId, goods.title, goods.description, 
+    //  $sql = "SELECT userId, cart.goodId, goods.title, goods.description,
+    //                   goods.image, goods.color, goods.size, goods.price, goods.discount, cart.quantity AS quantity
+    //            FROM cart
+    //            INNER JOIN goods
+    //            ON cart.goodId = goods.goodId
+    //            WHERE userId = '" . $id . "'";
+
+    $sql = "SELECT cart.id, userId, cart.goodId, goods.title, goods.description, 
                    goods.image, goods.color, goods.size, goods.price, goods.discount, cart.quantity AS quantity
             FROM cart
             INNER JOIN goods

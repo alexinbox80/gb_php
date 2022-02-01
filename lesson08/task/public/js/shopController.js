@@ -72,54 +72,67 @@ export default {
     },
 
     _removeFromCart(id) {
-        this._cartModel.remove(id);
+
+        console.log('remove : ' + id);
+
+        //this._cartModel.remove(id);
+
+        this._cartModel.decrease(id);
+
+        console.log('_removeFromCart : ' +  JSON.stringify(this._eventEmmiter));
+
+     //save state in BD????
+
+     ///?????????????????
+        //this._renderPageCart();
+        //this._renderCart();
     },
 
     _renderCart() {
-        const $header = document.querySelector('#header__cart');
+        const header = document.querySelector('#header__cart');
 
-        const $oldBtn = document.querySelector('.header__cart-count');
+        const oldBtn = document.querySelector('.header__cart-count');
 
-        if ($oldBtn) {
+        if (oldBtn) {
 
-            $oldBtn.remove();
+            oldBtn.remove();
 
         }
 
-        if ($header) {
-            new CardBtnView(this._cartModel.getCount()).render($header, 'afterbegin');
+        if (header) {
+            new CardBtnView(this._cartModel.getCount()).render(header, 'afterbegin');
         }
 
     },
 
     _renderPageCart() {
-        const $cartList = document.querySelector('.cart__cards');
+        const cartList = document.querySelector('.cart__cards');
 
-        if ($cartList) {
+        if (cartList) {
 
-            $cartList.textContent = '';
+            cartList.textContent = '';
 
             this._cartModel._goodList.forEach(
                 good => {
                     //console.log(good);
                     const cart = new CartView(good);
-                    cart.render($cartList, 'afterbegin');
-                    //card.setAddHandler(this._addToCart.bind(this));
+                    cart.render(cartList, 'afterbegin');
+                    cart.setAddHandler(this._removeFromCart.bind(this, good.goodId));
                 }
             );
         }
     },
 
     _renderShowcase() {
-        const $product = document.querySelector('.products__box');
+        const product = document.querySelector('.products__box');
 
-        if ($product) {
-            $product.textContent = '';
+        if (product) {
+            product.textContent = '';
 
             this._showcaseModel.getAll().slice(0, 6).forEach(
                 good => {
                         const card = new CardView(good);
-                        card.render($product, 'beforeend');
+                        card.render(product, 'beforeend');
                         card.setAddHandler(this._addToCart.bind(this));
                     }
             );

@@ -25,13 +25,13 @@ export default class CardView {
                     </div>`;
     }
 
-    render($container, target = 'beforeend') {
+    render(container, target = 'beforeend') {
 
-        $container.insertAdjacentHTML(target, this.getHtml());
+        container.insertAdjacentHTML(target, this.getHtml());
 
         if (this._addHandler) {
 
-            const addBtn = $container.querySelector(`#card-${this._data.id}`);
+            const addBtn = container.querySelector(`#card-${this._data.id}`);
 
             addBtn.addEventListener('click', this._addHandler.bind(this));
         }

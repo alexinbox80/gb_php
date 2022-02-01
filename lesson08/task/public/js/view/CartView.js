@@ -1,7 +1,7 @@
 export default class CartView {
     constructor(good) {
         this._data = good;
-        //this._addHandlerCb = null;
+        this._addHandlerCb = null;
     }
 
     getHtml() {
@@ -18,7 +18,7 @@ export default class CartView {
                                            min="1" max="27" value="${this._data.quantity}">
                                 </div>
                             </div>
-                             <div class="cart__cross-close">
+                             <div class="cart__cross-close" id="card-${this._data.goodId}">
                                 <!--<a class="cart__cross-link" href="#">-->
                                     <svg class="cart__cross-pic" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -30,27 +30,28 @@ export default class CartView {
                          </div>`;
     }
 
-    render($container, target = 'beforeend') {
+    render(container, target = 'beforeend') {
 
-        $container.insertAdjacentHTML(target, this.getHtml());
-        /*
-                if (this._addHandler) {
+        container.insertAdjacentHTML(target, this.getHtml());
 
-                    const addBtn = $container.querySelector(`#card-${this._data.id}`);
+        if (this._addHandler) {
 
-                    addBtn.addEventListener('click', this._addHandler.bind(this));
-                }
-            }
+            const addBtn = container.querySelector(`#card-${this._data.goodId}`);
+            //const addBtn = container.getAttribute('data-id');
 
-            _addHandler() {
-                this._addHandlerCb(this._data.id);
-            }
+            //console.log('addBtn : ' + addBtn + ' cont : ' + container);
 
-            setAddHandler(callback) {
+            addBtn.addEventListener('click', this._addHandler.bind(this));
+        }
+    }
 
-                this._addHandlerCb = callback;
+    _addHandler() {
+        this._addHandlerCb(this._data.goodId);
+    }
 
-            }
-        */
+    setAddHandler(callback) {
+
+        this._addHandlerCb = callback;
+
     }
 }

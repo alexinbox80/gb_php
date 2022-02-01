@@ -43,7 +43,8 @@ export default class GoodList {
     }
 
     remove(id) {
-        this._goodList.filter(good => good.id !== id);
+        this._goodList =  this._goodList.filter(good => good.goodId !== id);
+        return this._goodList;
     }
 
     get(id) {
@@ -55,7 +56,7 @@ export default class GoodList {
     }
 
     getById(id) {
-        return this.goods.find(good => good.id === id);
+        return this._goodList.find(good => good.id === id);
     }
 
     getSumGoodsList() {

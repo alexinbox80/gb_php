@@ -19,8 +19,13 @@ if (isset($json['todo'])) {
         case 'addToCart':
             $cart = $json['cart'];
 
-            //add2Cart($connect, $cart);
-            $result = ['info' => add2Cart($connect, $cart)];
+            $count = 0;
+
+            for ($ind = 0; $ind < count($cart); $ind++) {
+                $count += add2Cart($connect, $cart[$ind]);
+            }
+
+            $result = ['info' => $count];
             break;
         default:
             $result = ['error' => 'Bad Request'];

@@ -1,7 +1,7 @@
 export default {
     // Объект который хранит обработчики событий
     _listeners: {},
-    // функция которая добавлыет обработчики события в массив
+    // функция которая добавляет обработчики события в массив
     addListener(type, callback) {
         if(this._listeners[type]) {
             this._listeners[type].push(callback);

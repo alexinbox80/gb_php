@@ -26,7 +26,7 @@ export default class Cart extends GoodList {
 
     add(good) {
 
-        const findGood = this._goodList.find(item => item.id == good.id);
+        const findGood = this._goodList.find(item => item.goodId === good.goodId);
 
         if (findGood) {
 
@@ -39,11 +39,14 @@ export default class Cart extends GoodList {
         }
         //console.log('goodCount : ' + this.getCount() + ' goodList : ' + JSON.stringify(this._goodList));
 
-        this._eventEmmiter.emit('added', good.id);
+        this._eventEmmiter.emit('added', good.goodId);
+
+        // добавить в базу вместо this._save()???
     }
 
     decrease(id) {
-        const findGood = this._goodList.filter(item => item.id == id);
+        console.log('decrease : ' + id);
+        const findGood = this._goodList.filter(item => item.goodId === id);
 
         if(findGood.quantity > 1) {
             findGood.remove();
@@ -51,6 +54,9 @@ export default class Cart extends GoodList {
             super.remove(id);
         }
         this._eventEmmiter.emit('removed', id);
+
+        // удалить из базы
+
     }
 
     getCount() {
